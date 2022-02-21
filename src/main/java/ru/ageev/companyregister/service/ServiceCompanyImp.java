@@ -24,10 +24,7 @@ public class ServiceCompanyImp implements ServiceCompany {
         return repositoryCompany.getById(id);
     }
 
-//    @Override
-//    public Company readCountry(String country) {
-//        return repositoryCompany.toString(country);
-//    }
+
 
     @Override
     public List<Company> readAll() {

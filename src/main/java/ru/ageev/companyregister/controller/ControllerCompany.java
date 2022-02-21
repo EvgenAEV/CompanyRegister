@@ -30,13 +30,7 @@ public class ControllerCompany {
                 ? new ResponseEntity<>(company, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    //    @GetMapping(value = "/company/{country}")
-//    public ResponseEntity<?> readCountry(@PathVariable(name = "country") String country ) {
-//        final Company company = serviceCompany.readCountry(country);
-//        return company != null
-//                ? new ResponseEntity<>(company, HttpStatus.OK)
-//                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
+
     @GetMapping(value = "/companies/all")
     public ResponseEntity<List<Company>> readAll() {
         final List<Company> companies = serviceCompany.readAll();

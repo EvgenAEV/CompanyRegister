@@ -10,7 +10,7 @@ public interface ServiceCompany {
 
     Company read(int id);
 
-//    Company readCountry(String country);
+
 
     List<Company> readAll();
 }
