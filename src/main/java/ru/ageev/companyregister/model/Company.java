@@ -23,4 +23,5 @@ public class Company {
     String company;
     @Column(name = "country")
     String country;
+
 }
