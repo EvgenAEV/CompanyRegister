@@ -39,4 +39,20 @@ public class ControllerCompany {
                 ? new ResponseEntity<>(companies, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @PutMapping(value = "/company/{id}")
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Company company) {
+        final boolean updated = serviceCompany.update(company, id);
+
+        return updated
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+
+    @DeleteMapping(value ="/company/{id}")
+    public ResponseEntity<?> delete(@PathVariable(name = "id") int id){
+        final boolean deleted = serviceCompany.delete(id);
+        return deleted
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
 }

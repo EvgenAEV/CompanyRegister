@@ -24,11 +24,28 @@ public class ServiceCompanyImp implements ServiceCompany {
         return repositoryCompany.getById(id);
     }
 
-
-
     @Override
     public List<Company> readAll() {
         return repositoryCompany.findAll();
+    }
+
+    @Override
+    public boolean update(Company company, int id) {
+        if (repositoryCompany.existsById(id)) {
+            company.setId(id);
+            repositoryCompany.save(company);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        if(repositoryCompany.existsById(id)){
+            repositoryCompany.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
 

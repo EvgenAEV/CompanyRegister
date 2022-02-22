@@ -10,7 +10,9 @@ public interface ServiceCompany {
 
     Company read(int id);
 
-
-
     List<Company> readAll();
+
+    boolean update (Company company,int id);
+
+    boolean delete(int id);
 }
