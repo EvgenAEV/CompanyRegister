@@ -1,0 +1,12 @@
+The application keeps records of organizations.
+Organizations are stored in the database and carry information about the company name,
+country of registration and identification number (id).
+To test the functionality, you need to connect a database management system
+(postgreSQL was used in this application) and an HTTP client for API testing.
+Example http request: http://localhost:8080/company/{...}
+
+Example creat entity in the format JSON  :
+{
+    "company": "some name company",
+    "country": "some country"
+}

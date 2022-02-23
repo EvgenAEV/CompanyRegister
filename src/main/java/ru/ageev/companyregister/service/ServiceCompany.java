@@ -8,11 +8,11 @@ public interface ServiceCompany {
 
     void create(Company company);
 
-    Company read(int id);
+    Company read(long id);
 
     List<Company> readAll();
 
-    boolean update (Company company,int id);
+    boolean update (Company company,long id);
 
-    boolean delete(int id);
+    boolean delete(long id);
 }

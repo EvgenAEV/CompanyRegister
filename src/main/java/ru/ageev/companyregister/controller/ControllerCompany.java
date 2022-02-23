@@ -9,6 +9,7 @@ import ru.ageev.companyregister.service.ServiceCompany;
 
 import java.util.List;
 @RestController
+@RequestMapping ("/company")
 public class ControllerCompany {
     private final ServiceCompany serviceCompany;
 
@@ -17,21 +18,21 @@ public class ControllerCompany {
         this.serviceCompany = serviceCompany;
     }
 
-    @PostMapping(value = "/company")
+    @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Company company) {
         serviceCompany.create(company);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("id new company " + company.getId(),HttpStatus.CREATED);
 
     }
-    @GetMapping(value = "/company/{id}")
-    public ResponseEntity<?> readId(@PathVariable(name = "id") int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> readId(@PathVariable(name = "id") long id) {
         final Company company = serviceCompany.read(id);
         return company != null
                 ? new ResponseEntity<>(company, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/companies/all")
+    @GetMapping("/all")
     public ResponseEntity<List<Company>> readAll() {
         final List<Company> companies = serviceCompany.readAll();
 
@@ -39,8 +40,8 @@ public class ControllerCompany {
                 ? new ResponseEntity<>(companies, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @PutMapping(value = "/company/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Company company) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable(name = "id") long id, @RequestBody Company company) {
         final boolean updated = serviceCompany.update(company, id);
 
         return updated
@@ -48,8 +49,8 @@ public class ControllerCompany {
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @DeleteMapping(value ="/company/{id}")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") int id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable(name = "id") long id){
         final boolean deleted = serviceCompany.delete(id);
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
