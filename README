@@ -7,6 +7,6 @@ Example http request: http://localhost:8080/company/{...}
 
 Example creat entity in the format JSON  :
 {
-    "company": "some name company",
+    "companyName": "some name company",
     "country": "some country"
 }
