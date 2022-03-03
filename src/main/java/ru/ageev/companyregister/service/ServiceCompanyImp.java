@@ -4,16 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ageev.companyregister.model.Company;
 import ru.ageev.companyregister.repository.RepositoryCompany;
-
 import java.util.List;
+
 @Service
 public class ServiceCompanyImp implements ServiceCompany {
     private final RepositoryCompany repositoryCompany;
+
     @Autowired
     public ServiceCompanyImp(RepositoryCompany repositoryCompany) {
         this.repositoryCompany = repositoryCompany;
     }
-
 
     @Override
     public void create(Company company) {
@@ -21,13 +21,18 @@ public class ServiceCompanyImp implements ServiceCompany {
     }
 
     @Override
-    public Company read(long id) {
+    public Company readId(long id) {
         return repositoryCompany.getById(id);
     }
 
     @Override
     public List<Company> readAll() {
         return repositoryCompany.findAll();
+    }
+
+    @Override
+    public Company readName(String name) {
+        return repositoryCompany.findByCompanyName(name);
     }
 
     @Override
@@ -42,7 +47,7 @@ public class ServiceCompanyImp implements ServiceCompany {
 
     @Override
     public boolean delete(long id) {
-        if(repositoryCompany.existsById(id)){
+        if (repositoryCompany.existsById(id)) {
             repositoryCompany.deleteById(id);
             return true;
         }
