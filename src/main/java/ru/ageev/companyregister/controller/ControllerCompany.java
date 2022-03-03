@@ -29,14 +29,14 @@ public class ControllerCompany {
 
     }
 
-    @GetMapping("/{id:\\d+}")
+    @GetMapping("/readCompany/{id}")
     public ResponseEntity<?> readCompanyId(@PathVariable(name = "id") long id) {
         final Company company = serviceCompany.readId(id);
         return company != null
                 ? new ResponseEntity<>(company, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/{companyName:\\D+}")
+    @GetMapping("/readCompanyName/{companyName}")
     public ResponseEntity<?> readCompanyName(@PathVariable(name="companyName")String companyName){
         final Company company = serviceCompany.readName(companyName);
         return company != null
