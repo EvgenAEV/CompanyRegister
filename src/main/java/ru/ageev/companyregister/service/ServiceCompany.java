@@ -15,4 +15,6 @@ public interface ServiceCompany {
     boolean update (Company company,long id);
 
     boolean delete(long id);
+
+    Company readName (String name);
 }

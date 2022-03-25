@@ -5,5 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.ageev.companyregister.model.Company;
 @Repository
 public  interface RepositoryCompany extends JpaRepository<Company,Long> {
+    Company findByCompanyName(String name);
 
 }
