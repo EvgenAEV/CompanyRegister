@@ -10,16 +10,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name ="company_register")
 @Getter
 @Setter
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name ="company_register")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Company {
     @Id
-    @Column(name = "id")
+    @Column(name = "company_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    Long companyId;
 
     @NotBlank
     @Size(min = 2)

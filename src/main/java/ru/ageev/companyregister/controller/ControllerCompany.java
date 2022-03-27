@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.ageev.companyregister.model.Company;
 import ru.ageev.companyregister.service.ServiceCompany;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -24,23 +25,27 @@ public class ControllerCompany {
     public ResponseEntity<?> createCompany(@Valid @RequestBody Company company, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return new ResponseEntity<>("you didn't fill in the fields", HttpStatus.BAD_REQUEST);
+
         serviceCompany.create(company);
-        return new ResponseEntity<>("id new company " + company.getId(), HttpStatus.CREATED);
+        return company.getCompanyId() != null
+                ? new ResponseEntity<>(company, HttpStatus.CREATED)
+                : new ResponseEntity<>("this entity already exists",HttpStatus.BAD_REQUEST);
 
     }
 
-    @GetMapping("/readCompany/{id}")
-    public ResponseEntity<?> readCompanyId(@PathVariable(name = "id") long id) {
-        final Company company = serviceCompany.readId(id);
+    @GetMapping("/readCompany/{companyId}")
+    public ResponseEntity<?> readCompanyId(@PathVariable(name = "companyId") long companyId) {
+        final Company company = serviceCompany.readId(companyId);
         return company != null
                 ? new ResponseEntity<>(company, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
     @GetMapping("/readCompanyName/{companyName}")
-    public ResponseEntity<?> readCompanyName(@PathVariable(name="companyName")String companyName){
+    public ResponseEntity<?> readCompanyName(@PathVariable(name = "companyName") String companyName) {
         final Company company = serviceCompany.readName(companyName);
         return company != null
-                ? new ResponseEntity<>(company,HttpStatus.OK)
+                ? new ResponseEntity<>(company, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -53,21 +58,21 @@ public class ControllerCompany {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateCompany(@PathVariable(name = "id") long id, @Valid
+    @PutMapping("/{companyId}")
+    public ResponseEntity<?> updateCompany(@PathVariable(name = "companyId") long companyId, @Valid
     @RequestBody Company company, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return new ResponseEntity<>("not modified", HttpStatus.NOT_MODIFIED);
 
-        final boolean updated = serviceCompany.update(company, id);
+        final boolean updated = serviceCompany.update(company, companyId);
         return updated
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") long id) {
-        final boolean deleted = serviceCompany.delete(id);
+    @DeleteMapping("/{companyId}")
+    public ResponseEntity<?> deleteCompany(@PathVariable(name = "companyId") long companyId) {
+        final boolean deleted = serviceCompany.delete(companyId);
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);

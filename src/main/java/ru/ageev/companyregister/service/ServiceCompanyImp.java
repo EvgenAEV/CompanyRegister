@@ -1,9 +1,11 @@
 package ru.ageev.companyregister.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import ru.ageev.companyregister.model.Company;
 import ru.ageev.companyregister.repository.RepositoryCompany;
+
 import java.util.List;
 
 @Service
@@ -17,12 +19,16 @@ public class ServiceCompanyImp implements ServiceCompany {
 
     @Override
     public void create(Company company) {
-        repositoryCompany.save(company);
+        if (repositoryCompany.exists(Example.of(company))) {
+            repositoryCompany.findAll();
+        } else {
+            repositoryCompany.save(company);
+        }
     }
 
     @Override
-    public Company readId(long id) {
-        return repositoryCompany.getById(id);
+    public Company readId(long companyId) {
+        return repositoryCompany.getById(companyId);
     }
 
     @Override
@@ -36,9 +42,9 @@ public class ServiceCompanyImp implements ServiceCompany {
     }
 
     @Override
-    public boolean update(Company company, long id) {
-        if (repositoryCompany.existsById(id)) {
-            company.setId(id);
+    public boolean update(Company company, long companyId) {
+        if (repositoryCompany.existsById(companyId)) {
+            company.setCompanyId(companyId);
             repositoryCompany.save(company);
             return true;
         }
@@ -46,9 +52,9 @@ public class ServiceCompanyImp implements ServiceCompany {
     }
 
     @Override
-    public boolean delete(long id) {
-        if (repositoryCompany.existsById(id)) {
-            repositoryCompany.deleteById(id);
+    public boolean delete(long companyId) {
+        if (repositoryCompany.existsById(companyId)) {
+            repositoryCompany.deleteById(companyId);
             return true;
         }
         return false;

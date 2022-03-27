@@ -8,13 +8,13 @@ public interface ServiceCompany {
 
     void create(Company company);
 
-    Company readId(long id);
+    Company readId(long companyId);
 
     List<Company> readAll();
 
-    boolean update (Company company,long id);
+    boolean update (Company company,long companyId);
 
-    boolean delete(long id);
+    boolean delete(long companyId);
 
     Company readName (String name);
 }
