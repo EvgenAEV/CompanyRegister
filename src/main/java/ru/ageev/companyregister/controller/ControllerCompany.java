@@ -29,7 +29,7 @@ public class ControllerCompany {
         serviceCompany.create(company);
         return company.getCompanyId() != null
                 ? new ResponseEntity<>(company, HttpStatus.CREATED)
-                : new ResponseEntity<>("this entity already exists",HttpStatus.BAD_REQUEST);
+                : new ResponseEntity<>("this entity already exists", HttpStatus.BAD_REQUEST);
 
     }
 
